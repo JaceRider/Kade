@@ -8,7 +8,7 @@ TESTAPP = _testapp
 ifeq (true,$(COVERAGE))
 test: jshint coverage
 else
-test: jshint base clean
+test: jshint coverage
 endif
 
 base:
