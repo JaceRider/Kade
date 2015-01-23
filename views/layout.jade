@@ -1,0 +1,68 @@
+doctype html
+html(ng-app="app" ng-strict-di)
+  head
+    title(data-ng-bind="$state.current.data.pageTitle")=title
+
+    // Viewport mobile tag for sensible mobile support
+    meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1")
+
+    // Required for HTML5 URL Mode
+    base(href='/')
+
+    // STYLES
+    link(rel="stylesheet", href="/styles/app.css")
+    // STYLES END
+
+    block styles
+
+  body
+    block body
+
+    // The linker searches for this tag and adds js.  If there's no linker, we point to sails.io.js
+    // SCRIPTS
+    script(src="/js/dependencies/sails.io.js")
+    script(src="/vendor/modernizr/modernizr.js")
+    script(src="/vendor/jquery/jquery.js")
+    script(src="/vendor/foundation/foundation.js")
+    script(src="/vendor/angular/angular.js")
+    script(src="/vendor/angular-ui-router/angular-ui-router.js")
+    script(src="/vendor/angular-animate/angular-animate.js")
+    script(src="/vendor/angular-sanitize/angular-sanitize.js")
+    script(src="/vendor/angular-local-storage/angular-local-storage.js")
+    script(src="/vendor/angularSails/ngsails.io.js")
+    script(src="/vendor/toastr/toastr.js")
+    script(src="/vendor/moment/moment.js")
+    script(src="/app/app.module.js")
+    script(src="/app/components/core/core.module.js")
+    script(src="/app/components/home/home.module.js")
+    script(src="/app/shared/blocks/exception/exception.module.js")
+    script(src="/app/shared/blocks/logger/logger.module.js")
+    script(src="/app/shared/blocks/router/router.module.js")
+    script(src="/app/shared/ui/ui.module.js")
+    script(src="/app/shared/user/user.module.js")
+    script(src="/app/shared/userManage/userManage.module.js")
+    script(src="/app/shared/blocks/exception/exception-handler.provider.js")
+    script(src="/app/shared/blocks/exception/exception.js")
+    script(src="/app/shared/blocks/logger/logger.js")
+    script(src="/app/shared/blocks/router/routehelper.js")
+    script(src="/app/shared/ui/config.route.js")
+    script(src="/app/shared/ui/uiTopBar.js")
+    script(src="/app/shared/user/config.js")
+    script(src="/app/shared/user/login/userLogin.js")
+    script(src="/app/shared/user/logout/userLogout.js")
+    script(src="/app/shared/user/run.js")
+    script(src="/app/shared/user/signup/userSignup.js")
+    script(src="/app/shared/user/twitter/config.route.js")
+    script(src="/app/shared/user/twitter/userTwitter.js")
+    script(src="/app/shared/user/twitter/userTwitterLogin.js")
+    script(src="/app/shared/user/user.js")
+    script(src="/app/shared/user/userInterceptor.js")
+    script(src="/app/shared/user/userRoles.js")
+    script(src="/app/shared/userManage/config.route.js")
+    script(src="/app/shared/userManage/userManage.js")
+    script(src="/app/components/core/config.js")
+    script(src="/app/components/core/constants.js")
+    script(src="/app/components/home/config.route.js")
+    script(src="/app/components/home/home.js")
+    // SCRIPTS END
+

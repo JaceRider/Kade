@@ -1,0 +1,11 @@
+form.user-signup(name="userSignup" ng-submit="signup(userSignup)" novalidate)
+  small.error(ng-if="errorCheck('global')") {{ error.err }}
+  input(type="text" name="email" placeholder="Email" data-ng-model="user.email" data-ng-class="{error : errorCheck('email')}" required)
+  small.error(ng-if="errorCheck('email')") {{ error.err }}
+  input(type="password" name="password" placeholder="Password" data-ng-model="user.password" data-ng-class="{error : errorCheck('password')}" required)
+  small.error(ng-if="errorCheck('password')") {{ error.err }}
+  input(type="password" name="passwordConfirm" placeholder="Confirm Password" data-ng-model="user.passwordConfirm" data-ng-class="{error : errorCheck('passwordConfirm')}" required)
+  small.error(ng-if="errorCheck('passwordConfirm')") {{ error.err }}
+  button.button.tiny.expand(type="submit")
+    i.fa.fa-plus
+    |  Sign Up

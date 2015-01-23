@@ -1,0 +1,27 @@
+form.user-login(name="userLogin" ng-submit="login(userLogin)" novalidate)
+  small.error(ng-if="errorCheck('global')") {{ error.err }}
+  .row
+    .medium-4.columns
+      .row.collapse
+        .small-1.columns
+          span.prefix
+            i.fa.fa-envelope
+        .small-11.columns
+          input(type="text" name="email" placeholder="Email" data-ng-model="user.email" data-ng-class="{error : errorCheck('email')}" required autofocus)
+          small.error(ng-if="errorCheck('email')") {{ error.err }}
+    .medium-4.columns
+      .row.collapse
+        .small-1.columns
+          span.prefix
+            i.fa.fa-lock
+        .small-11.columns
+          input(type="password" name="password" placeholder="Password" data-ng-model="user.password" data-ng-class="{error : eerrorCheck('password')}" required)
+          small.error(ng-if="errorCheck('password')") {{ error.err }}
+    .medium-4.columns
+      ul.button-group.even-2
+        li
+          button.button.tiny.expand(type="submit")
+            i.fa.fa-sign-in
+            |  Sign In
+        li
+          data-user-twitter-login.button.tiny.expand.secondary

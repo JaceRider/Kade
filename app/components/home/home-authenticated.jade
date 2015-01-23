@@ -1,0 +1,12 @@
+#home-second
+  .row
+    .columns.medium-12
+      br
+      .panel
+        h1
+          i.fa.fa-lock
+          |  Secure Page
+        h4 {{ vm.message }}
+        data-user-twitter-login.button.expand.secondary
+      .home-public.text-center
+        a.button.expand(ui-sref="ui.home") Page (all users)

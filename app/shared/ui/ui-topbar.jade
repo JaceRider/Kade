@@ -1,0 +1,15 @@
+nav#ui-topbar.top-bar(data-ng-if="vm.user.isAuthenticated()" role="navigation" data-topbar)
+  ul.title-area
+    li.name
+      h1
+        a {{ $state.current.data.pageTitle }}
+
+  section.top-bar-section
+    ul.right
+      li
+        a(ui-sref="ui.home")
+          i.fa.fa-home
+      li
+        a(ui-sref="ui.users") Users
+      li
+        data-user-logout

@@ -1,0 +1,23 @@
+#home
+  .row
+    .columns.medium-12
+      br
+      .panel
+        h1
+          i.fa.fa-users
+          |  Public Page
+        h4 How many cares one loses when one decides not to be something but to be someone.
+        h5(data-ng-if="vm.user.isAuthenticated()") Logged in as:
+          strong  {{ vm.user.info().email }}
+      .home-secured.text-center
+        ul.button-group.even-2
+          li
+            a.button.expand(ui-sref="ui.home-authenticated") Page (authenticated users)
+          li
+            a.button.expand(ui-sref="ui.home-admin") Page (admin users)
+      .home-login(data-ng-if="!vm.user.isAuthenticated()")
+        h3 Sign In
+        data-user-login
+      .home-signup(data-ng-if="!vm.user.isAuthenticated()")
+        h3 Register
+        data-user-signup
