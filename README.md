@@ -1,4 +1,5 @@
 | [![Build Status][travis-image]][travis-url] | [![Coverage Status][coverage-image]][coverage-url] |
+| ------- | ------- |
 
 # sails.js
 
