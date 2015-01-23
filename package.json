@@ -5,10 +5,10 @@
   "description": "MongoDB + ExpressJS + AngularJS + NodeJS + SailsJS Seed",
   "keywords": [],
   "scripts": {
-    "start": "node app.js",
-    "watch": "node-dev app.js",
+    "start": "node-dev app.js",
     "test":"make test",
-    "debug": "node debug app.js"
+    "debug": "node debug app.js",
+    "postinstall" : "./node_modules/.bin/bower install"
   },
   "main": "app.js",
   "repository": {
@@ -45,8 +45,6 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-cssmin": "~0.9.0",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-jst": "~0.6.0",
-    "grunt-contrib-less": "0.11.1",
     "grunt-contrib-uglify": "~0.5.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-mocha-test": "^0.12.7",
