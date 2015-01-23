@@ -1,13 +1,16 @@
 | [![Build Status][travis-image]][travis-url] | [![Coverage Status][coverage-image]][coverage-url] |
 | ------- | ------- |
 
-# sails.js
+# Kade
 
-a [Sails](http://sailsjs.org) application utilizing Angular, Jade and LibSASS.
+## What is it?
+
+A boilerplate utilizing Sails.js and Angular. It's currently in the very early
+stages of development.
 
 ## Dependency Setup
 
-Run 'npm install', followed by 'bower install' to grab the dependencies.
+Run 'npm install'.
 
 ## Libraries
 
@@ -19,8 +22,12 @@ Run 'npm install', followed by 'bower install' to grab the dependencies.
 
 ## Tasks
 
-- Safeguards your code from any dependencies that may not be using minification-safe practices. | [grunt-ng-annotate](https://www.npmjs.org/package/grunt-ng-annotate)
-- LibSASS Support | [grunt-libsass](https://github.com/project-collins/grunt-libsass)
+- [grunt-ng-annotate](https://www.npmjs.org/package/grunt-ng-annotate) Safeguards your code from any dependencies that may not be using minification-safe practices.
+- [grunt-libsass](https://github.com/project-collins/grunt-libsass) LibSASS Support
+
+## Testing
+
+Tests are run through the wonderful mocha so just clone the library run `npm install` then `npm test`
 
 ### Add libraries
 
@@ -30,7 +37,7 @@ Then add it to your asset pipeline. (tasks/pipeline.js)
 
 ## Task triggers
 
-    $ node-dev app.js
+    $ npm start
 
 Watch your dev code for changes and automatically reboot Sails. Requires [node-dev](https://github.com/fgnass/node-dev).
 
