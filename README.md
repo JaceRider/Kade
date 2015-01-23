@@ -1,3 +1,5 @@
+| [![Build Status][travis-image]][travis-url] | [![Coverage Status][coverage-image]][coverage-url] |
+
 # sails.js
 
 a [Sails](http://sailsjs.org) application utilizing Angular, Jade and LibSASS.
@@ -50,3 +52,9 @@ Will build a concatenated and minified production version of the app and place i
 ## Resources
 
 - [Angular Style Guide](https://github.com/johnpapa/angularjs-styleguide)
+
+[travis-url]: https://travis-ci.org/JaceRider/Kade
+[travis-image]: https://travis-ci.org/JaceRider/Kade.svg?branch=develop&style=flat
+
+[coverage-image]: https://coveralls.io/repos/JaceRider/Kade/badge.svg?branch=develop&style=flat
+[coverage-url]: https://coveralls.io/r/JaceRider/Kade?branch=develop

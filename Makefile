@@ -1,14 +1,12 @@
 REPORTER = spec
 MOCHA = ./node_modules/.bin/mocha
-SAILS = ./node_modules/.bin/sails
 JSHINT = ./node_modules/.bin/jshint
 ISTANBUL = ./node_modules/.bin/istanbul
-TESTAPP = _testapp
 
 ifeq (true,$(COVERAGE))
 test: jshint coverage
 else
-test: jshint coverage
+test: jshint base clean
 endif
 
 base:
