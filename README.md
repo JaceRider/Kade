@@ -10,7 +10,7 @@ stages of development.
 
 ## Dependency Setup
 
-Run 'npm install'.
+Run 'npm install' followed by 'bower install'
 
 ## Libraries
 

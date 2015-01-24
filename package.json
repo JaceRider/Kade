@@ -7,8 +7,7 @@
   "scripts": {
     "start": "node-dev app.js",
     "test": "make test",
-    "debug": "node debug app.js",
-    "postinstall": "./node_modules/.bin/bower install"
+    "debug": "node debug app.js"
   },
   "main": "app.js",
   "repository": {
