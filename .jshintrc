@@ -8,7 +8,6 @@
   "browser": true,
   "wsh": true,
   "sub": true,
-  "globalstrict" : true,
 
   // Suppress warnings about mixed tabs and spaces
   "smarttabs": true,

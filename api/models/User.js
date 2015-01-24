@@ -1,7 +1,5 @@
 /* global Role, User */
 
-'use strict';
-
 /**
 * User.js
 *

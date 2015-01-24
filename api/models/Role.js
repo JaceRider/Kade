@@ -1,7 +1,5 @@
 /* global User */
 
-'use strict';
-
 var _ = require('lodash');
 
 /**

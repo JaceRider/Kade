@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * 400 (Bad Request) Handler
  *

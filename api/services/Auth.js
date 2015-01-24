@@ -1,7 +1,5 @@
 /* global Attempt, Token, Auth, User, TokenUse */
 
-'use strict';
-
 var _ = require('lodash');
 
 /**

@@ -1,6 +1,3 @@
-'use strict';
-/* jshint unused:false */
-
 /**
  * hasJsonWebToken
  *
