@@ -1,8 +1,3 @@
-'use strict';
-
-var should = require('should');
-var mocha = require('mocha');
-
 describe('UserModel',function(){
   var User = require('../../../api/models/User');
 

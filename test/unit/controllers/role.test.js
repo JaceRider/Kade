@@ -1,8 +1,3 @@
-'use strict';
-
-var should = require('should');
-var mocha = require('mocha');
-
 describe('RoleController', function(){
   var RoleController = require('../../../api/controllers/RoleController');
 

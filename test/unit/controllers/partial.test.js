@@ -1,8 +1,3 @@
-'use strict';
-
-var should = require('should');
-var mocha = require('mocha');
-
 describe('PartialController', function(){
   var PartialController = require('../../../api/controllers/PartialController');
 

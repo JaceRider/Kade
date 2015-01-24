@@ -23,6 +23,17 @@ module.exports.connections = {
 
   /***************************************************************************
   *                                                                          *
+  * Local disk storage for TEST ONLY                                         *
+  *                                                                          *
+  * Used by the test suite.                                                  *
+  *                                                                          *
+  ***************************************************************************/
+  test: {
+    adapter: 'sails-memory'
+  },
+
+  /***************************************************************************
+  *                                                                          *
   * Local disk storage for DEVELOPMENT ONLY                                  *
   *                                                                          *
   * Installed by default.                                                    *

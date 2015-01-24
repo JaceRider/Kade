@@ -6,9 +6,9 @@
   "keywords": [],
   "scripts": {
     "start": "node-dev app.js",
-    "test":"make test",
+    "test": "make test",
     "debug": "node debug app.js",
-    "postinstall" : "./node_modules/.bin/bower install"
+    "postinstall": "./node_modules/.bin/bower install"
   },
   "main": "app.js",
   "repository": {
@@ -36,6 +36,7 @@
     "validator": "^3.22.1"
   },
   "devDependencies": {
+    "barrels": "^1.4.0",
     "coveralls": "^2.11.2",
     "grunt": "0.4.2",
     "grunt-bower-task": "^0.3.4",
@@ -56,7 +57,9 @@
     "jshint": "^2.6.0",
     "mocha": "^2.1.0",
     "ng-annotate": "^0.14.1",
-    "should": "^4.6.1"
+    "sails-memory": "^0.10.3",
+    "should": "^4.6.1",
+    "supertest": "^0.15.0"
   },
   "engines": {
     "node": ">=0.6"
