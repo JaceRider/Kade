@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * UserController
  *
@@ -10,7 +12,7 @@ module.exports = {
   /**
    * Return information about currently available roles.
    */
-  list: function(req, res) {
+  index: function(req, res) {
     res.json(sails.config.roles);
   }
 

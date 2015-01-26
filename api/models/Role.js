@@ -1,3 +1,5 @@
+'use strict';
+
 /* global User */
 
 var _ = require('lodash');
@@ -109,6 +111,7 @@ module.exports = {
     var self = this;
 
     if (typeof user === 'object') user = user.id;
+
     User.findOne(user).populate('roles').exec(has);
 
     function has(err, user){
