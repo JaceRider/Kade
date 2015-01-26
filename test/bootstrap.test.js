@@ -1,11 +1,15 @@
-var Sails = require('sails');
-var Barrels = require('barrels');
-var should = require('should');
-var mocha = require('mocha');
+'use strict';
+
+var Sails = require('sails')
+  , Barrels = require('barrels')
+  , should = require('should')
+  , mocha = require('mocha')
+  , fixtures;
 
 
 // Global before hook
 before(function (done) {
+
   // Lift Sails with test database
   Sails.lift({
     log: {
@@ -40,6 +44,5 @@ before(function (done) {
 
 // Global after hook
 after(function (done) {
-  console.log(); // Skip a line before displaying Sails lowering logs
   sails.lower(done);
 });

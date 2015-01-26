@@ -1,23 +1,10 @@
+'use strict';
+
 var request = require('supertest');
 
 describe('AuthController', function(){
   var AuthController = require('../../../api/controllers/AuthController');
   var user;
-
-  it('should be an object', function(done){
-    AuthController.should.be.type('object');
-    done();
-  });
-
-  it('should have a signup property', function(done){
-    AuthController.should.have.property('signup');
-    done();
-  });
-
-  it('should have a login property', function(done){
-    AuthController.should.have.property('login');
-    done();
-  });
 
   describe('signup', function() {
     it('should return success', function (done) {
@@ -56,7 +43,7 @@ describe('AuthController', function(){
         .expect(hasResults)
         .end(done);
       function hasResults(res) {
-        if (!res.body.length || res.body.length != 1) return "no results found";
+        if (!res.body.length || res.body.length !== 1) return 'no results found';
       }
     });
   });
@@ -69,7 +56,7 @@ describe('AuthController', function(){
         .expect(hasResults)
         .end(done);
       function hasResults(res) {
-        if (!('id' in res.body)) return "user was not returned";
+        if (!('id' in res.body)) return 'user was not returned';
       }
     });
   });
