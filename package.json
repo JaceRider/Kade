@@ -5,8 +5,7 @@
   "description": "MongoDB + ExpressJS + AngularJS + NodeJS + SailsJS Seed",
   "keywords": [],
   "scripts": {
-    "init": "npm install",
-    "install": "bower install",
+    "postinstall": "bower install",
     "prestart": "npm install",
     "start": "node app.js",
     "watch": "node-dev app.js",
