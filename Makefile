@@ -48,12 +48,12 @@ coveralls:
 	--reporters dots,coverage,coveralls \
 	--single-run \
 	--no-auto-watch \
-	--browsers Chrome
+	--browsers Firefox
 	@echo "+------------------------------------+"
 	@echo "| Running protractor tests           |"
 	@echo "+------------------------------------+"
 	@NODE_ENV=test $(PROTRACTOR) protractor.conf.js \
-	--browser=chrome
+	--browser=firefox
 	@echo "+------------------------------------+"
 	@echo "| Running mocha tests with coveralls |"
 	@echo "+------------------------------------+"
