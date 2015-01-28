@@ -7,7 +7,7 @@ GRUNT = ./node_modules/.bin/grunt
 PROTRACTOR = ./node_modules/.bin/protractor
 
 ifeq (true,$(COVERAGE))
-test: jshint assets coveralls
+test: jshint assets coveralls clean
 else
 test: jshint mocha assets karma protractor clean
 endif
@@ -42,12 +42,24 @@ assets:
 
 coveralls:
 	@echo "+------------------------------------+"
-	@echo "| Running mocha tests with coveralls |"
+	@echo "| Running karma tests with coveralls |"
 	@echo "+------------------------------------+"
 	@NODE_ENV=test $(KARMA) start karma.config.js \
 	--reporters coverage,coveralls \
 	--single-run \
 	--browsers PhantomJS
+	@echo "+------------------------------------+"
+	@echo "| Running mocha tests with coveralls |"
+	@echo "+------------------------------------+"
+	@NODE_ENV=test $(ISTANBUL) \
+	cover ./node_modules/mocha/bin/_mocha test/server \
+	--report lcovonly \
+	-- -R $(REPORTER) \
+	--recursive && \
+	cat ./coverage/lcov.info |\
+	 ./node_modules/coveralls/bin/coveralls.js && \
+	 rm -rf ./coverage
+	 rm -rf ./.tmp
 
 jshint:
 	@echo "+------------------------------------+"
