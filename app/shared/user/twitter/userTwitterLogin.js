@@ -26,11 +26,11 @@
       $scope.login = function(){
         localStorageService.set('destination', current);
         $window.location = '/api/auth/twitter';
-      }
+      };
 
       $scope.twitter = function(){
         return user.isAuthenticated() && (typeof user.getCurrent().auth.twitterId !== 'undefined');
-      }
+      };
 
     }
 

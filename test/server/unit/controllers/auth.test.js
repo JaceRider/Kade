@@ -3,7 +3,7 @@
 var request = require('supertest');
 
 describe('AuthController', function(){
-  var AuthController = require('../../../api/controllers/AuthController');
+  var AuthController = require('../../../../api/controllers/AuthController');
   var user;
 
   describe('signup', function() {

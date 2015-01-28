@@ -1,7 +1,7 @@
 'use strict';
 
-var should = require('should')
-  , mocha = require('mocha');
+var should = require('should'),
+    mocha = require('mocha');
 
 describe('templates', function(){
   describe('installed', function(){
@@ -9,7 +9,7 @@ describe('templates', function(){
       describe('Attempt', function() {
         var Attempt;
         it('should exist', function(done){
-          Attempt = require('../../api/models/Attempt');
+          Attempt = require('../../../api/models/Attempt');
           Attempt.should.be.Object;
           done();
         });
@@ -24,7 +24,7 @@ describe('templates', function(){
       describe('Auth', function() {
         var Auth;
         it('should exist', function(done){
-          Auth = require('../../api/models/Auth');
+          Auth = require('../../../api/models/Auth');
           Auth.should.be.Object;
           done();
         });
@@ -38,7 +38,7 @@ describe('templates', function(){
       describe('Role', function() {
         var Role;
         it('should exist', function(done){
-          Role = require('../../api/models/Role');
+          Role = require('../../../api/models/Role');
           Role.should.be.Object;
           done();
         });
@@ -51,7 +51,7 @@ describe('templates', function(){
       describe('Token', function() {
         var Token;
         it('should exist', function(done){
-          Token = require('../../api/models/Token');
+          Token = require('../../../api/models/Token');
           Token.should.be.Object;
           done();
         });
@@ -65,7 +65,7 @@ describe('templates', function(){
       describe('TokenUse', function() {
         var TokenUse;
         it('should exist', function(done){
-          TokenUse = require('../../api/models/TokenUse');
+          TokenUse = require('../../../api/models/TokenUse');
           TokenUse.should.be.Object;
           done();
         });
@@ -78,7 +78,7 @@ describe('templates', function(){
       describe('User', function() {
         var User;
         it('should exist', function(done){
-          User = require('../../api/models/User');
+          User = require('../../../api/models/User');
           User.should.be.Object;
           done();
         });

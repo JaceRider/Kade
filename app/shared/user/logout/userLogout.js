@@ -10,7 +10,7 @@
     var directive = {
       // link: link,
       controller: controller,
-      template: '<a data-ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a>',
+      template: '<a class="user-logout" data-ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a>',
       restrict: 'E',
       replace: true,
       scope: true
@@ -24,7 +24,7 @@
         logger.clear();
         logger.success('Logout Complete');
         user.logout();
-      }
+      };
 
     }
 

@@ -1,17 +1,18 @@
 'use strict';
 
-var Sails = require('sails')
-  , Barrels = require('barrels')
-  , should = require('should')
-  , mocha = require('mocha')
-  , fixtures;
+var Sails = require('sails'),
+    Barrels = require('barrels'),
+    should = require('should'),
+    mocha = require('mocha'),
+    fixtures;
 
 
 // Global before hook
 before(function (done) {
-
+  this.timeout(10000);
   // Lift Sails with test database
   Sails.lift({
+    port: 1338,
     log: {
       level: 'error'
     },

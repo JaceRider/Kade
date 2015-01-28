@@ -24,7 +24,6 @@
      * Check to see if a user allowed to access request.
      */
     function authorize(access) {
-      console.log('userRoles', userRoles);
       if (access === userRoles.user) {
         return this.isAuthenticated();
       } else {

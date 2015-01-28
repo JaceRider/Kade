@@ -38,7 +38,7 @@ var jsLibFilesToInject = [
   'vendor/foundation/foundation.js',
 
   // Lo-Dash
-  'vendor/lodash/lodash.compact.js',
+  'vendor/lodash/lodash.compat.js',
 
   // Angular
   'vendor/angular/angular.js',

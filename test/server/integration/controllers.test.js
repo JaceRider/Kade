@@ -1,7 +1,7 @@
 'use strict';
 
-var should = require('should')
-  , mocha = require('mocha');
+var should = require('should'),
+    mocha = require('mocha');
 
 describe('templates', function(){
   describe('installed', function(){
@@ -9,7 +9,7 @@ describe('templates', function(){
       describe('AuthController', function(){
         var AuthController;
         it('should exist', function(done){
-          AuthController = require('../../api/controllers/AuthController.js');
+          AuthController = require('../../../api/controllers/AuthController.js');
           AuthController.should.be.Object;
           done();
         });
@@ -24,7 +24,7 @@ describe('templates', function(){
       describe('PartialController', function(){
         var PartialController;
         it('should exist', function(done){
-          PartialController = require('../../api/controllers/PartialController.js');
+          PartialController = require('../../../api/controllers/PartialController.js');
           PartialController.should.be.Object;
           done();
         });
@@ -36,7 +36,7 @@ describe('templates', function(){
       describe('RoleController', function(){
         var RoleController;
         it('should exist', function(done){
-          RoleController = require('../../api/controllers/RoleController.js');
+          RoleController = require('../../../api/controllers/RoleController.js');
           RoleController.should.be.Object;
           done();
         });
@@ -48,7 +48,7 @@ describe('templates', function(){
       describe('UserController', function(){
         var UserController;
         it('should exist', function(done){
-          UserController = require('../../api/controllers/UserController.js');
+          UserController = require('../../../api/controllers/UserController.js');
           UserController.should.be.Object;
           done();
         });

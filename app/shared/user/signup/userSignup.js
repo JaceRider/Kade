@@ -44,7 +44,7 @@
       }
 
       function errorCheck( type ){
-        return $scope.error.type && $scope.error.type == type;
+        return $scope.error.type && $scope.error.type === type;
       }
     }
 

@@ -29,9 +29,13 @@ Run 'npm install' followed by 'bower install'
 
 Tests are run through the wonderful mocha so just clone the library run `npm install` then `npm test`
 
-### Add libraries
+## Add components
 
     $ bower install --save {{library}}
+
+## Add modules
+
+    $ npm install --save {{library}}
 
 Then add it to your asset pipeline. (tasks/pipeline.js)
 
@@ -39,11 +43,11 @@ Then add it to your asset pipeline. (tasks/pipeline.js)
 
     $ npm start
 
-Watch your dev code for changes and automatically reboot Sails. Requires [node-dev](https://github.com/fgnass/node-dev).
-
-    $ sails lift
-
 Launch app for development. Runs the *default* task (tasks/register/default.js).
+
+    $ npm run watch
+
+Watch your dev code for changes and automatically reboot Sails. Requires [node-dev](https://github.com/fgnass/node-dev).
 
     $ sails lift --prod
 

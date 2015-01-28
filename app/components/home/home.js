@@ -15,7 +15,7 @@
 
     vm.logout = function(){
       user.logout();
-    }
+    };
   }
 
   /* @ngInject */
@@ -34,10 +34,10 @@
         console.log('error', data);
         // this callback will be called asynchronously
         // when the response is available
-      })
+      });
 
     vm.logout = function(){
       user.logout();
-    }
+    };
   }
 })();
