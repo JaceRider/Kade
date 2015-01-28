@@ -45,9 +45,15 @@ coveralls:
 	@echo "| Running karma tests with coveralls |"
 	@echo "+------------------------------------+"
 	@NODE_ENV=test $(KARMA) start karma.config.js \
-	--reporters coverage,coveralls \
+	--reporters dots,coverage,coveralls \
 	--single-run \
-	--browsers PhantomJS
+	--no-auto-watch \
+	--browsers Chrome
+	@echo "+------------------------------------+"
+	@echo "| Running protractor tests           |"
+	@echo "+------------------------------------+"
+	@NODE_ENV=test $(PROTRACTOR) protractor.conf.js \
+	--browser=chrome
 	@echo "+------------------------------------+"
 	@echo "| Running mocha tests with coveralls |"
 	@echo "+------------------------------------+"
