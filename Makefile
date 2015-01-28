@@ -62,7 +62,7 @@ coveralls:
 	--report lcovonly \
 	-- -R $(REPORTER) \
 	--recursive && \
-	cat ./coverage/lcov.info |\
+	cat ./coverage/**/*.info |\
 	 ./node_modules/coveralls/bin/coveralls.js && \
 	 rm -rf ./coverage
 	 rm -rf ./.tmp

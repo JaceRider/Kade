@@ -17,7 +17,7 @@ module.exports = function(config){
       './test/client/**/*.test.js'
     ]),
 
-    reporters: ['progress', 'coverage', 'coveralls'],
+    reporters: ['progress', 'coverage'],
 
     preprocessors: {
       '.tmp/public/app/**/*.js': ['coverage']
@@ -30,7 +30,7 @@ module.exports = function(config){
 
     autoWatch : true,
 
-    browsers : ['Chrome'],
+    browsers : ['Firefox'],
 
     port: 9876,
 
