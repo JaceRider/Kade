@@ -9,7 +9,7 @@ PROTRACTOR = ./node_modules/.bin/protractor
 ifeq (true,$(COVERAGE))
 test: jshint assets coveralls clean
 else
-test: jshint mocha assets karma protractor clean
+test: jshint assets mocha karma protractor clean
 endif
 
 mocha:
