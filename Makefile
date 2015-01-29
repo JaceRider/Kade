@@ -3,7 +3,6 @@ MOCHA = ./node_modules/.bin/mocha
 JSHINT = ./node_modules/.bin/jshint
 ISTANBUL = ./node_modules/.bin/istanbul
 KARMA = ./node_modules/karma/bin/karma
-GRUNT = ./node_modules/.bin/grunt
 PROTRACTOR = ./node_modules/.bin/protractor
 
 ifeq (true,$(COVERAGE))
@@ -38,7 +37,7 @@ assets:
 	@echo "+------------------------------------+"
 	@echo "| Building assets                    |"
 	@echo "+------------------------------------+"
-	@NODE_ENV=test $(GRUNT) testAssets
+	@NODE_ENV=test node -e "require('grunt').tasks(['testAssets']);"
 
 coveralls:
 	@echo "+------------------------------------+"
