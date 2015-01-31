@@ -65,8 +65,8 @@ Will build a concatenated and minified production version of the app and place i
 
 - [Angular Style Guide](https://github.com/johnpapa/angularjs-styleguide)
 
-[travis-url]: https://travis-ci.org/JaceRider/Kade
-[travis-image]: https://travis-ci.org/JaceRider/Kade.svg?branch=develop&style=flat
+[travis-url]: https://travis-ci.org/jacerider/kade
+[travis-image]: https://travis-ci.org/jacerider/kade.svg?branch=develop&style=flat
 
-[coverage-image]: https://coveralls.io/repos/JaceRider/Kade/badge.svg?branch=develop&style=flat
-[coverage-url]: https://coveralls.io/r/JaceRider/Kade?branch=develop
+[coverage-image]: https://coveralls.io/repos/jacerider/kade/badge.svg?branch=develop&style=flat
+[coverage-url]: https://coveralls.io/r/jacerider/kade?branch=develop
