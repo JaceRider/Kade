@@ -27,7 +27,7 @@ Run 'npm install' followed by 'bower install'
 
 ## Testing
 
-Tests are run through the wonderful mocha so just clone the library run `npm install` then `npm test`
+Tests are run through the wonderful mocha so just clone the library run `npm test`
 
 ## Add components
 
