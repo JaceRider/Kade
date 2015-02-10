@@ -4,35 +4,20 @@
 
 var _ = require('lodash');
 
+var config = sails.config.auth;
+
+/**
+ * Get config.
+ */
+exports.getConfig = function(){
+  return config;
+};
+
 /**
  * Get config.
  */
 exports.getConfig = function(){
   return sails.config.auth;
-};
-
-/**
- * Get twitter info.
- */
-exports.getTwitter = function(){
-  return {
-    requestToken : 'https://api.twitter.com/oauth/request_token',
-    accessToken  : 'https://api.twitter.com/oauth/access_token',
-    userProfile  : 'https://api.twitter.com/1.1/users/show.json',
-    authenticate : 'https://api.twitter.com/oauth/authenticate',
-    callbackUri  : '/api/auth/twitter_oauth'
-  };
-};
-
-/**
- * Get twitter info.
- */
-exports.getTwitterOauth = function(){
-  var OAuth   = require('oauth').OAuth;
-  var config = this.getConfig();
-  var twitter = this.getTwitter();
-  var method  = config.authMethod.twitter;
-  return new OAuth(twitter.requestToken, twitter.accessToken, method.consumerKey, method.consumerSecret, '1.0A', config.baseUrl+twitter.callbackUri, 'HMAC-SHA1');
 };
 
 /**
@@ -210,9 +195,12 @@ exports.getSelf = function(req, cb){
 */
 exports.findAuth = function(criteria, cb){
   var self = this;
-  Auth.findOne(criteria).populate('user')
+  Auth.findOne(criteria)
   .exec(function(err, auth){
-    cb(err, self._invertAuth(auth));
+    User.findOne(auth.user).populate('auth').populate('roles').exec(function(err, user){
+      cb(err, user);
+    });
+    // cb(err, self._invertAuth(auth));
   });
 };
 
@@ -434,7 +422,7 @@ exports.findUserFromToken = function(token, cb){
   // deserialize the token iss
   var _iss = token.iss.split('|');
 
-  User.findOne(_iss[0]).populate('auth').exec(function(err, user){
+  User.findOne(_iss[0]).populate('auth').populate('roles').exec(function(err, user){
     if(err){
       sails.log.debug(__filename + ':' + __line + ' ' + err);
     }
@@ -518,7 +506,7 @@ exports._attachAuthToUser = function(auth, cb){
 
   // create the user
   if(!auth.user){
-    User.create({auth:auth.id}).exec(function(err, user){
+    User.create({auth:auth.id}).populate('roles').exec(function(err, user){
       if(err){
         sails.log.debug(__filename + ':' + __line + ' ' + err);
         return cb(err);
@@ -542,10 +530,12 @@ exports._attachAuthToUser = function(auth, cb){
       User.update(auth.user.id, {auth:auth.id}).exec(function(){});
     }
 
-    cb(null, self._invertAuth(auth));
+    User.findOne(auth.user.id).populate('auth').populate('roles').exec(function(err, user){
+      cb(err, user);
+    });
+    // cb(null, self._invertAuth(auth));
   }
 };
-
 
 /**
  * Inverts the auth object so we don't need to run another query
@@ -554,18 +544,17 @@ exports._attachAuthToUser = function(auth, cb){
  * @return {Object}      User object
  * @api private
  */
-exports._invertAuth = function(auth){
-  // nothing to invert
-  if(!auth || !auth.user){
-    return auth;
-  }
+// exports._invertAuth = function(auth){
+//   // nothing to invert
+//   if(!auth || !auth.user){
+//     return auth;
+//   }
 
-  var u = auth.user;
-  delete(auth.user);
-  u.auth = auth;
-  return u;
-};
-
+//   var u = auth.user;
+//   delete(auth.user);
+//   u.auth = auth;
+//   return u;
+// };
 
 /**
 * Decorates the auth object with values of the attributes object
@@ -587,8 +576,6 @@ exports._updateAuth = function(auth, attributes){
   }
   return changed;
 };
-
-
 
 /**
  * returns an ip address and port from the express request object, or the
@@ -631,3 +618,19 @@ exports.allParams = function(req){
   _.merge(params, req.headers);
   return _.merge(params, req.query);
 };
+
+/**
+ * Load additional optional services
+ */
+var services = require('include-all')({
+  dirname     :  __dirname +'/Auth',
+  filter      :  /(.+)\.js$/,
+  excludeDirs :  /^\.(git|svn)$/
+});
+
+_.forEach(services, function(service, key){
+  if(typeof config.authMethod[key].enabled !== 'undefined' &&
+    config.authMethod[key].enabled === 1){
+    _.merge(exports, services[key]);
+  }
+});

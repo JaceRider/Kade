@@ -1,7 +1,9 @@
 'use strict';
 
+var _ = require('lodash');
+
 /**
-* User.js
+* Auth.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -10,9 +12,25 @@
 module.exports = {
 
   schema: true,
-  // migrate: 'drop',
 
-  attributes: attributesGet(),
+  attributes: {
+    user:{
+      model: 'user'
+    },
+    email: {
+      type: 'email',
+      unique: true
+    },
+    password: {
+      type: 'string'
+    },
+
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.password;
+      return obj;
+    }
+  },
 
   beforeCreate: function(values, cb) {
     if(typeof values.password !== 'undefined'){
@@ -36,43 +54,19 @@ module.exports = {
 
 };
 
-function attributesGet(){
-  var _ = require('lodash');
-  var config = sails.config.auth;
+/**
+ * Load additional optional services
+ */
+var config = sails.config.auth;
+var services = require('include-all')({
+  dirname     :  __dirname +'/Auth',
+  filter      :  /(.+)\.js$/,
+  excludeDirs :  /^\.(git|svn)$/
+});
 
-  var attributes = {
-    user:{
-      model: 'user'
-    },
-    email: {
-      type: 'email',
-      unique: true
-    },
-    password: {
-      type: 'string'
-    },
-
-    toJSON: function() {
-      var obj = this.toObject();
-      delete obj.password;
-      return obj;
-    }
-  };
-
-  if(typeof config.authMethod.twitter !== 'undefined'){
-    attributes = _.merge({
-      twitterId: {
-        type: 'integer',
-        unique: true
-      },
-      screenName: {
-        type: 'string'
-      },
-      name:{
-        type: 'string'
-      }
-    }, attributes);
+_.forEach(services, function(service, key){
+  if(typeof config.authMethod[key].enabled !== 'undefined' &&
+    config.authMethod[key].enabled === 1){
+    _.merge(module.exports, services[key]);
   }
-
-  return attributes;
-}
+});
