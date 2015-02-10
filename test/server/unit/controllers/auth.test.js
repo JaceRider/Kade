@@ -3,11 +3,12 @@
 var request = require('supertest');
 
 describe('AuthController', function(){
-  var AuthController = require('../../../../api/controllers/AuthController');
+  var AuthController;
   var user;
 
   describe('signup', function() {
     it('should return success', function (done) {
+      AuthController = require('../../../../api/controllers/AuthController');
       request(sails.hooks.http.app)
         .post('/api/auth/signup')
         .send({
