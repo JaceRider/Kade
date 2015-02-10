@@ -9,7 +9,7 @@ describe('RoleModel', function(){
   describe('create user', function() {
     it('should return success', function (done) {
       sails.services.auth.getUserAuthObject({email:'email@site.com',password:'2600'}, true, function(err, _user){
-        User.should.be.Object;
+        sails.models.user.should.be.Object;
         user = _user;
         done();
       });
@@ -18,7 +18,7 @@ describe('RoleModel', function(){
 
   describe('add role 1', function() {
     it('should return role', function (done) {
-      Role.addToUser(user, 1, function(err, role){
+      sails.models.role.addToUser(user, 1, function(err, role){
         role.should.be.ok;
         role.should.be.Object;
         role.role.should.eql(1);
@@ -29,7 +29,7 @@ describe('RoleModel', function(){
 
   describe('has role 1 as string', function() {
     it('should return true', function (done) {
-      Role.userHasRole(user, 1, function(err, found){
+      sails.models.role.userHasRole(user, 1, function(err, found){
         found.should.be.true;
         done();
       });
@@ -38,7 +38,7 @@ describe('RoleModel', function(){
 
   describe('has role 1 as object', function() {
     it('should return true', function (done) {
-      Role.userHasRole(user, [1], function(err, found){
+      sails.models.role.userHasRole(user, [1], function(err, found){
         found.should.be.true;
         done();
       });
@@ -47,7 +47,7 @@ describe('RoleModel', function(){
 
   describe('has role 2', function() {
     it('should return false', function (done) {
-      Role.userHasRole(user, 2, function(err, found){
+      sails.models.role.userHasRole(user, 2, function(err, found){
         found.should.be.false;
         done();
       });
@@ -56,7 +56,7 @@ describe('RoleModel', function(){
 
   describe('add role 2', function() {
     it('should return role', function (done) {
-      Role.addToUser(user, 2, function(err, role){
+      sails.models.role.addToUser(user, 2, function(err, role){
         role.should.be.ok;
         role.should.be.Object;
         role.role.should.eql(2);
@@ -67,13 +67,13 @@ describe('RoleModel', function(){
 
   describe('has both role 1 and 2', function() {
     it('should return false', function (done) {
-      Role.userHasRoles(user, [1], function(err, found){
+      sails.models.role.userHasRoles(user, [1], function(err, found){
         found.should.be.false;
         done();
       });
     });
     it('should return true', function (done) {
-      Role.userHasRoles(user, [1,2], function(err, found){
+      sails.models.role.userHasRoles(user, [1,2], function(err, found){
         found.should.be.true;
         done();
       });
@@ -82,7 +82,7 @@ describe('RoleModel', function(){
 
   describe('has both role 1 and 3', function() {
     it('should return false', function (done) {
-      Role.userHasRoles(user, [1,3], function(err, found){
+      sails.models.role.userHasRoles(user, [1,3], function(err, found){
         found.should.be.false;
         done();
       });
@@ -91,11 +91,11 @@ describe('RoleModel', function(){
 
   describe('remove role 1 and 2', function() {
     it('should return role', function (done) {
-      Role.removeFromUser(user, 1, function(err, role){
+      sails.models.role.removeFromUser(user, 1, function(err, role){
         role.should.be.ok;
         role.should.be.Object;
         role.role.should.eql(1);
-        Role.removeFromUser(user, 2, function(err, role){
+        sails.models.role.removeFromUser(user, 2, function(err, role){
           role.should.be.ok;
           role.should.be.Object;
           role.role.should.eql(2);
@@ -107,7 +107,7 @@ describe('RoleModel', function(){
 
   describe('remove user', function() {
     it('should return success', function(done) {
-      User.destroy(user._id).exec(function(err){
+      sails.models.user.destroy(user._id).exec(function(err){
         (err === null).should.be.true;
         done();
       });
