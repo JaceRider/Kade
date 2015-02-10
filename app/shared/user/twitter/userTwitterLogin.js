@@ -10,7 +10,7 @@
     var directive = {
       // link: link,
       controller: controller,
-      template: '<a data-ng-click="login()" data-ng-hide="twitter()"><i class="fa fa-twitter"></i> {{ label }} with Twitter</a>',
+      template: '<a data-ng-click="login()" data-ng-hide="twitter()"><i class="fa fa-twitter"></i> {{ label }}</a>',
       restrict: 'E',
       replace: true,
       scope: true
@@ -21,7 +21,7 @@
     function controller($scope, $location, $window, localStorageService, user) {
       var current = $location.$$path;
 
-      $scope.label = user.isAuthenticated() ? 'Connect' : 'Login';
+      $scope.label = user.isAuthenticated() ? 'Connect' : 'Log-In';
 
       $scope.login = function(){
         localStorageService.set('destination', current);

@@ -6,7 +6,7 @@
     .factory('userInterceptor', userInterceptor);
 
   /* @ngInject */
-  function userInterceptor($q, $injector) {
+  function userInterceptor($q, $injector, logger) {
     var localStorageService = $injector.get('localStorageService');
 
     var service = {
@@ -28,7 +28,12 @@
     }
 
     function responseError(response){
-      if (response.status === 401 || response.status === 403) {
+      if (response.status === 401) {
+        logger.error('You do not have permission to access this page.');
+        $injector.get('$state').go('ui.home');
+      }
+      if (response.status === 403) {
+        logger.error('Your session has expired. Please log-in again.');
         localStorageService.remove('user');
         $injector.get('$state').go('ui.home');
       }

@@ -13,7 +13,6 @@ module.exports = function(req, res, next) {
     if(err){
       return res.forbidden({err: err});
     }
-
     // valid request
     next();
   });

@@ -4,7 +4,8 @@
   angular
     .module('app.home')
     .controller('Home', Home)
-    .controller('HomeAuthenticated', HomeAuthenticated);
+    .controller('HomeAuthenticated', HomeAuthenticated)
+    .controller('HomeAdmin', HomeAdmin);
 
   /* @ngInject */
   function Home(user, logger) {
@@ -31,7 +32,7 @@
         vm.message = data.message;
       })
       .error(function(data, status, headers, config) {
-        console.log('error', data);
+        // console.log('error', data);
         // this callback will be called asynchronously
         // when the response is available
       });
@@ -40,4 +41,28 @@
       user.logout();
     };
   }
+
+  /* @ngInject */
+  function HomeAdmin($http, user, logger) {
+    /*jshint validthis: true */
+    var vm = this;
+
+    vm.user = user;
+    vm.message = '';
+
+    $http.get('/api/auth/admin')
+      .success(function(data, status, headers, config) {
+        vm.message = data.message;
+      })
+      .error(function(data, status, headers, config) {
+        // console.log('error', data);
+        // this callback will be called asynchronously
+        // when the response is available
+      });
+
+    vm.logout = function(){
+      user.logout();
+    };
+  }
+
 })();

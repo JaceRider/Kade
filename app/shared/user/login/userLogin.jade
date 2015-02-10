@@ -18,10 +18,12 @@ form.user-login(name="userLogin" ng-submit="login(userLogin)" novalidate)
           input#user-login-password(type="password" name="password" placeholder="Password" data-ng-model="user.password" data-ng-class="{error : eerrorCheck('password')}" required)
           small.error(ng-if="errorCheck('password')") {{ error.err }}
     .medium-4.columns
-      ul.button-group.even-2
+      ul.button-group.even-3
         li
           button.button.tiny.expand#user-login-submit(type="submit")
             i.fa.fa-sign-in
             |  Sign In
         li
           data-user-twitter-login.button.tiny.expand.secondary
+        li
+          data-user-facebook-login.button.tiny.expand.secondary

@@ -37,6 +37,23 @@
       }
     });
 
+    $stateProvider.state('ui.home-admin', {
+      url: '/admin',
+      data: {
+        pageTitle: 'Admin',
+        accessHasRoles: [1,2]
+        // accessHasRole: 1
+        // access: userRoles.user
+      },
+      views: {
+        'content@ui': {
+          templateUrl: 'partials/components/home/home-admin',
+          controller: 'HomeAdmin',
+          controllerAs: 'vm',
+        }
+      }
+    });
+
   }
 
 })();

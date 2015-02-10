@@ -20,6 +20,11 @@ module.exports = function () {
           user.addRole(1, function(err, role){
             if(role){
               sails.log.info(__filename + ':' + __line + ' Admin user was created. Email: ' + attr.email + ' | Password: ' + attr.password);
+              user.addRole(2, function(err, role){
+                if(role){
+                  sails.log.info(__filename + ':' + __line + ' Admin user was created. Email: ' + attr.email + ' | Password: ' + attr.password);
+                }
+              });
             }
           });
         }

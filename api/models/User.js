@@ -55,12 +55,23 @@ module.exports = {
     /**
      * Checks if a user has a role.
      *
-     * @param  {String}     roleId  The role id.
-     * @param  {Function}   cb      function to be called when the role has been
-     *                              found or an error has occurred
+     * @param  {Object|String}  roleIds The role id or ids.
+     * @param  {Function}       cb      function to be called when the role has been
+     *                                  found or an error has occurred
      */
-    hasRole: function(roleId, cb) {
-      Role.userHasRole(this, roleId, cb);
+    hasRole: function(roleIds, cb) {
+      Role.userHasRole(this, roleIds, cb);
+    },
+
+    /**
+     * Checks if a user has all roles.
+     *
+     * @param  {Object|String}  roleIds The role id or ids.
+     * @param  {Function}       cb      function to be called when the role has been
+     *                                  found or an error has occurred
+     */
+    hasRoles: function(roleIds, cb) {
+      Role.userHasRoles(this, roleIds, cb);
     },
 
     /**
@@ -73,7 +84,6 @@ module.exports = {
       return obj;
     }
   },
-
 
   /**
    * Adds a role to a user.
@@ -121,11 +131,11 @@ module.exports = {
    * Check if a user has a role.
    *
    * @param  {Object|String}  user    The user object or user id.
-   * @param  {String}         roleId  The role id.
+   * @param  {Object|String}  roleIds The role id or ids.
    * @param  {Function}       cb      function to be called when the role has been
    *                                  found or an error has occurred
    */
-  hasRole: function(user, roleId, cb){
+  hasRole: function(user, roleIds, cb){
     if (typeof user === 'object') return has(null, user);
     User.findOne(user).exec(has);
 
@@ -134,7 +144,28 @@ module.exports = {
         sails.log.debug(__filename + ':' + __line + ' ' + err);
         return cb(err);
       }
-      user.hasRole(roleId, cb);
+      user.hasRole(roleIds, cb);
+    }
+  },
+
+  /**
+   * Check if a user has all roles.
+   *
+   * @param  {Object|String}  user    The user object or user id.
+   * @param  {Object|String}  roleIds The role id or ids.
+   * @param  {Function}       cb      function to be called when the role has been
+   *                                  found or an error has occurred
+   */
+  hasRoles: function(user, roleIds, cb){
+    if (typeof user === 'object') return has(null, user);
+    User.findOne(user).exec(has);
+
+    function has(err, user){
+      if(err){
+        sails.log.debug(__filename + ':' + __line + ' ' + err);
+        return cb(err);
+      }
+      user.hasRoles(roleIds, cb);
     }
   }
 

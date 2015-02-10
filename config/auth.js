@@ -15,24 +15,27 @@ module.exports.auth = {
   // Auth Method(s)
   //
   authMethod: {
-    local: {
-      name: 'Local'
+    twitter: {
+      name: 'Twitter',
+      enabled: process.env.AUTH_TWITTER_ENABLED || 1,
+      consumerKey: process.env.AUTH_TWITTER_KEY || '',
+      consumerSecret: process.env.AUTH_TWITTER_SECRET || ''
     },
-    // twitter: {
-    //   name: 'Twitter',
-    //   consumerKey: 'your-consumer-key',
-    //   consumerSecret: 'your-consumer-secret'
-    // }
+    facebook: {
+      name: 'Facebook',
+      enabled: process.env.AUTH_FACEBOOK_ENABLED || 1,
+      appId: process.env.AUTH_FACEBOOK_ID || '',
+      appSecret: process.env.AUTH_FACEBOOK_SECRET || ''
+    }
   },
 
   // JSON Web Tokens
   //
-  // this provides waterlock with basic information to build your tokens,
+  // this provides Kade with basic information to build your tokens,
   // these tokens are used for authentication, password reset,
   // and anything else you can imagine
   jsonWebTokens: {
-    // CHANGE THIS SECRET
-    secret: 'boba takes out kast',
+    secret: 'change this secret',
     expiry:{
       unit: 'days',
       length: '7'

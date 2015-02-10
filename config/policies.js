@@ -16,6 +16,8 @@
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.policies.html
  */
 
+ var role = require(__dirname + '/policies/role');
+
 
 module.exports.policies = {
 
@@ -31,6 +33,7 @@ module.exports.policies = {
   // Author controller
   AuthController: {
     '*': true,
+    'admin': [role.hasOne([1])],
     'secure': ['authenticated']
   },
 

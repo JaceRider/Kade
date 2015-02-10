@@ -10,6 +10,8 @@
     var service = {
       authorize: authorize,
       isAuthenticated: isAuthenticated,
+      hasRole: hasRole,
+      hasRoles: hasRoles,
       hasEmail: hasEmail,
       getCurrent: getCurrent,
       login: login,
@@ -29,6 +31,32 @@
       } else {
         return true;
       }
+    }
+
+    /**
+     * Check to see if user has role.
+     */
+    function hasRole(roleId){
+      var user = this.getCurrent();
+      if(typeof user.roles !== 'object'){
+        return false;
+      }
+      return user.roles.indexOf(roleId) > -1;
+    }
+
+    /**
+     * Check to see if user has role.
+     */
+    function hasRoles(roleIds){
+      var user = this.getCurrent();
+
+      if(roleIds.length !== user.roles.length){
+        return false;
+      }
+
+      return user.roles.every(function(roleId) {
+        return user.roles.indexOf(roleId) > -1;
+      });
     }
 
     /**

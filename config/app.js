@@ -4,6 +4,10 @@
  * Note that don't use 'use strict' with this file, it will broke those helpers...
  */
 
+module.exports.app = {
+  appName : process.env.APPNAME || '',
+}
+
 Object.defineProperty(global, '__stack', {
   get: function() {
     var orig = Error.prepareStackTrace;

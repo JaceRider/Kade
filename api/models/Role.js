@@ -34,9 +34,8 @@ module.exports = {
 
     toJSON: function() {
       var obj = this.toObject();
-      delete obj.updatedAt;
-      return obj;
-    }
+      return obj.role;
+    },
   },
 
   /**
@@ -94,7 +93,7 @@ module.exports = {
           return cb(err);
         }
         sails.log.verbose(__filename + ':' + __line + ' Role ' + roleId + ' was removed from user ' + user.id);
-        return cb(err, role);
+        return cb(err, role[0]);
       });
     }
   },
@@ -103,26 +102,61 @@ module.exports = {
    * Check if a user has a role.
    *
    * @param  {Object|String}  user    The user object or user id.
-   * @param  {String}         roleId  The role id.
+   * @param  {Object|String}  roleIds The role id or ids.
    * @param  {Function}       cb      function to be called when the role has been
    *                                  found or an error has occurred
    */
-  userHasRole: function(user, roleId, cb) {
+  userHasRole: function(user, roleIds, cb) {
     var self = this;
 
     if (typeof user === 'object') user = user.id;
+
+    if(typeof roleIds !== 'object') roleIds = [roleIds];
 
     User.findOne(user).populate('roles').exec(has);
 
     function has(err, user){
       if (user.roles && typeof user.roles === 'object'){
         var hasRole = function(element, index){
-          return element.role === roleId;
+          return roleIds.indexOf(element.role) > -1;
         };
         cb(err, user.roles.some(hasRole));
       }
       else{
         return cb('User does not have role');
+      }
+    }
+  },
+
+  /**
+   * Check if a user has a role.
+   *
+   * @param  {Object|String}  user    The user object or user id.
+   * @param  {Object|String}  roleIds The role id or ids.
+   * @param  {Function}       cb      function to be called when the role has been
+   *                                  found or an error has occurred
+   */
+  userHasRoles: function(user, roleIds, cb) {
+    var self = this;
+
+    if (typeof user === 'object') user = user.id;
+
+    if(typeof roleIds !== 'object') roleIds = [roleIds];
+
+    User.findOne(user).populate('roles').exec(has);
+
+    function has(err, user){
+      if (user.roles && typeof user.roles === 'object'){
+        if(user.roles.length !== roleIds.length){
+          return cb('User does not have all roles', false);
+        }
+        var hasRole = function(element, index){
+          return roleIds.indexOf(element.role) > -1;
+        };
+        cb(err, user.roles.every(hasRole));
+      }
+      else{
+        return cb('User does not have all roles', false);
       }
     }
   }
