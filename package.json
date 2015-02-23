@@ -37,6 +37,7 @@
     "lodash": "^2.4.1",
     "moment": "^2.9.0",
     "node-bourbon": "^1.2.3",
+    "node-sass": "^2.0.1",
     "node-uuid": "^1.4.2",
     "oauth": "^0.9.12",
     "rc": "~0.5.0",
