@@ -13,6 +13,11 @@
         pageTitle: 'Users',
         access: userRoles.user
       },
+      // resolve:{
+      //   usersPrepService: ['$http', function($http) {
+      //     return $http.get('/api/user');
+      //   }]
+      // },
       views: {
         'content@ui': {
           templateUrl: 'partials/shared/userManage/userManage-list',

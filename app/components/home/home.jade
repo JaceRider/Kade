@@ -1,14 +1,13 @@
 #home
   .row
     .columns.medium-12
-      br
       .panel
         h1
           i.fa.fa-users
           |  Public Page
         h4 How many cares one loses when one decides not to be something but to be someone.
         h5(data-ng-if="vm.user.isAuthenticated()") Logged in as:
-          strong  {{ vm.user.info().email }}
+          strong  {{ vm.user.info().name }}
       .home-secured.text-center
         ul.button-group.even-2
           li

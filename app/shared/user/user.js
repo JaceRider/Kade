@@ -6,7 +6,7 @@
     .factory('user', user);
 
   /* @ngInject */
-  function user($http, $q, $state, $sailsSocket, localStorageService, userRoles) {
+  function user($http, $q, $sailsSocket, localStorageService, userRoles) {
     var service = {
       authorize: authorize,
       isAuthenticated: isAuthenticated,
@@ -115,10 +115,17 @@
     }
 
     function logout(){
-      // The backend doesn't care about logouts, delete the token and you're good to go.
-      localStorageService.remove('user');
-      // Go to the homepage.
-      $state.go('ui.home');
+      var deferred = $q.defer();
+
+      $sailsSocket.get('/api/auth/logout', status).
+        success(function(data, status, headers, config) {
+          localStorageService.remove('user');
+          deferred.resolve(data);
+        }).
+        error(function(data, status, headers, config) {
+          deferred.reject(data);
+        });
+      return deferred.promise;
     }
 
     function info(){

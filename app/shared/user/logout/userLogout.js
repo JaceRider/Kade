@@ -18,12 +18,18 @@
     return directive;
 
     /* @ngInject */
-    function controller($scope, logger, user) {
+    function controller($scope, $state, logger, user) {
 
       $scope.logout = function(){
         logger.clear();
-        logger.success('Logout Complete');
-        user.logout();
+        user.logout().then(function(result){
+          logger.success('Logout Success', result);
+          // Go to the homepage.
+          $state.go('ui.home');
+        }, function(error) {
+          logger.error('Logout Error', error);
+          $scope.error = error;
+        });
       };
 
     }

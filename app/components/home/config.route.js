@@ -41,8 +41,8 @@
       url: '/admin',
       data: {
         pageTitle: 'Admin',
-        accessHasRoles: [1,2]
-        // accessHasRole: 1
+        // accessHasRoles: [1,2]
+        accessHasRole: 1
         // access: userRoles.user
       },
       views: {

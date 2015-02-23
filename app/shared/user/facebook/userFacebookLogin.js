@@ -25,7 +25,11 @@
 
       $scope.login = function(){
         localStorageService.set('destination', current);
-        $window.location = '/api/auth/facebook';
+        var url = '/api/auth/facebook';
+        if(typeof user.getCurrent().auth !== 'undefined'){
+          url += '?access_token=' + user.getCurrent().token;
+        }
+        $window.location = url;
       };
 
       $scope.facebook = function(){
