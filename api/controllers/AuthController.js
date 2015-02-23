@@ -89,6 +89,10 @@ module.exports = {
 
       });
     }
+  },
+
+  logout: function(req, res) {
+    sails.services.auth.logout(req, res);
   }
 
 };

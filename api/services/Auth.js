@@ -21,6 +21,19 @@ exports.getConfig = function(){
 };
 
 /**
+ * handles logout events
+ *
+ * @param  {Object} req  express request object
+ * @param  {Object} res  expresss response object
+ * @api public
+ */
+exports.logout = function(req, res){
+  sails.log.verbose(__filename + ':' + __line + ' [User logout]');
+  this.unbindFromSession(req);
+  res.ok('You have successfully logged out.');
+};
+
+/**
  * handles successful logins
  *
  * @param  {Object} req  express request object
@@ -28,7 +41,7 @@ exports.getConfig = function(){
  * @param  {Object} user the user instance
  * @api public
  */
-exports.loginSuccess = function(req, res, user){
+exports.loginSuccess = function(req, res, user, redirect){
   sails.log.verbose(__filename + ':' + __line + ' [User login success]');
 
   var config = this.getConfig();
@@ -55,15 +68,50 @@ exports.loginSuccess = function(req, res, user){
 
   this.loginToken(req, res, user);
 
-  if(!config.jsonWebTokens.stateless){
-    req.session.user = user;
-    req.session.authenticated = true;
+  this.bindToSession(req, user);
+
+  if(redirect){
+    res.redirect(redirect + '?access_token=' + user.token);
   }
   else{
-    delete(req.session);
+    res.ok(user);
+  }
+};
+
+/**
+ * handles login failures
+ *
+ * @param  {Object} req  express request object
+ * @param  {Object} res  expresss response object
+ * @param  {Object} user the user instance
+ * @param  {Object|String} error the error that caused the failure
+ * @api public
+ */
+exports.loginFailure = function(req, res, user, error){
+  sails.log.verbose(__filename + ':' + __line + ' [User login failure]');
+
+  var config = this.getConfig();
+
+  if(user){
+    var address = this._addressFromRequest(req);
+
+    var attempt = {
+      user:user.id,
+      successful: false
+    };
+
+    _.merge(attempt, address);
+
+    Attempt.create(attempt).exec(function(err){
+      if(err){
+        sails.log.debug(__filename + ':' + __line + ' ' + err);
+      }
+    });
   }
 
-  res.ok(user);
+  this.unbindFromSession(req);
+
+  res.forbidden(error);
 };
 
 /**
@@ -106,48 +154,6 @@ exports.loginToken = function(req, res, user){
       expires: expires
     });
   });
-};
-
-/**
- * handles login failures
- *
- * @param  {Object} req  express request object
- * @param  {Object} res  expresss response object
- * @param  {Object} user the user instance
- * @param  {Object|String} error the error that caused the failure
- * @api public
- */
-exports.loginFailure = function(req, res, user, error){
-  sails.log.verbose(__filename + ':' + __line + ' [User login failure]');
-
-  var config = this.getConfig();
-
-  if(user){
-    var address = this._addressFromRequest(req);
-
-    var attempt = {
-      user:user.id,
-      successful: false
-    };
-
-    _.merge(attempt, address);
-
-    Attempt.create(attempt).exec(function(err){
-      if(err){
-        sails.log.debug(__filename + ':' + __line + ' ' + err);
-      }
-    });
-  }
-
-  if(!config.jsonWebTokens.stateless){
-    if(req.session.authenticated){
-      req.session.authenticated = false;
-    }
-
-    delete(req.session.user);
-  }
-
-  res.forbidden(error);
 };
 
 /**
@@ -351,9 +357,7 @@ exports.validateTokenRequest = function(req, cb){
       }
 
       // check if we're running in stateless
-      if(!config.jsonWebTokens.stateless){
-        self.bindToSession(req, user);
-      }
+      // self.bindToSession(req, user);
 
       // check if we're tracking usage
       if(config.jsonWebTokens.trackUsage){
@@ -488,8 +492,26 @@ exports.findAndTrackJWT = function(token, address, cb){
  * @param  {Waterline DAO} user the waterline user object
  */
 exports.bindToSession = function(req, user){
-  req.session.authenticated = true;
-  req.session.user = user;
+  var config = this.getConfig();
+  if(!config.jsonWebTokens.stateless){
+    req.session.authenticated = true;
+    req.session.user = user;
+  }
+  else{
+    // If we are in stateless mode, do not use sessions.
+    this.unbindFromSession(req);
+  }
+};
+
+/**
+ * Removes a user object to the Express req session
+ *
+ * @param  {Express request} req  the Express request object
+ * @param  {Waterline DAO} user the waterline user object
+ */
+exports.unbindFromSession = function(req){
+  delete req.session.authenticated;
+  delete req.session.user;
 };
 
 /**

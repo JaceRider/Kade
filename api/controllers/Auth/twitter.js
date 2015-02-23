@@ -5,12 +5,12 @@ module.exports = {
   twitter: function(req, res) {
     var auth = sails.services.auth;
     var config = auth.getConfig();
-    if(typeof config.authMethod.twitter !== 'undefined'){
+    auth.getSelf(req, function(err, user){
+      if(user){
+        req.session.user = user;
+      }
       auth.getTwitterOauth().getOAuthRequestToken(oauthResponse);
-    }
-    else{
-      res.badRequest();
-    }
+    });
 
     /**
      *
@@ -25,15 +25,9 @@ module.exports = {
         sails.log.verbose(__filename + ':' + __line + ' ' + err);
         res.badRequest();
       } else {
-        auth.getSelf(req, function(err, user){
-          if(user){
-            req.session.authenticated = true;
-            req.session.user = user;
-          }
-          req.session.oauthRequestToken = oauthToken;
-          req.session.oauthRequestTokenSecret = oauthTokenSecret;
-          res.redirect(auth.getTwitter().authenticate+'?oauth_token='+req.session.oauthRequestToken);
-        });
+        req.session.oauthRequestToken = oauthToken;
+        req.session.oauthRequestTokenSecret = oauthTokenSecret;
+        res.redirect(auth.getTwitter().authenticate+'?oauth_token='+req.session.oauthRequestToken);
       }
     }
 
@@ -66,8 +60,8 @@ module.exports = {
         req.session.oauthAccessToken = oauthAccessToken;
         req.session.oauthAccessTokenSecret = oauthAccessTokenSecret;
         oauth.get(auth.getTwitter().userProfile+'?user_id='+results.user_id,
-        req.session.oauthAccessToken,
-        req.session.oauthAccessTokenSecret, userInfoResponse);
+          req.session.oauthAccessToken,
+          req.session.oauthAccessTokenSecret, userInfoResponse);
       }
     }
 
@@ -79,6 +73,10 @@ module.exports = {
     * @return {[type]} [description]
     */
     function userInfoResponse(err, data){
+      delete req.session.oauthRequestToken;
+      delete req.session.oauthRequestTokenSecret;
+      delete req.session.oauthAccessToken;
+      delete req.session.oauthAccessTokenSecret;
       if (err) {
         sails.log.verbose(__filename + ':' + __line + ' ' + err);
         res.serverError();
@@ -86,13 +84,12 @@ module.exports = {
         var _data = JSON.parse(data);
         var attr = {
           twitterId: _data.id,
-          screenName: _data.screen_name,
-          name: _data.name
+          twitterScreenName: _data.screen_name,
+          twitterName: _data.name
         };
         if(req.session.user){
           attr.user = req.session.user.id;
           auth.attachAuthToUser(attr, req.session.user, userFound);
-          delete(req.session.user);
         }else{
           auth.findOrCreateAuth({twitterId: attr.twitterId}, attr, userFound);
         }
@@ -105,11 +102,10 @@ module.exports = {
         sails.log.verbose(__filename + ':' + __line + ' ' + err);
         auth.loginFailure(req, res, null, {err: 'Trouble creating user.'});
       }
-      auth.loginSuccess(req, res, user);
       // Redirect to Angular route. We pass token so that it can be stored on
       // the client.
-      sails.log.verbose(__filename + ':' + __line + ' Redirecting to ' + '/user/twitter/oauth?token=' + user.token);
-      res.redirect('/user/twitter/oauth?token=' + user.token);
+      sails.log.verbose(__filename + ':' + __line + ' Redirecting to ' + '/user/twitter/oauth');
+      auth.loginSuccess(req, res, user, '/user/twitter/oauth');
     }
 
   }

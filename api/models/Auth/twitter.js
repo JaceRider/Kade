@@ -6,10 +6,10 @@ module.exports = {
       type: 'integer',
       unique: true
     },
-    screenName: {
+    twitterScreenName: {
       type: 'string'
     },
-    name:{
+    twitterName:{
       type: 'string'
     }
   }

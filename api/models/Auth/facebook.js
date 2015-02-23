@@ -6,7 +6,10 @@ module.exports = {
       type: 'integer',
       unique: true
     },
-    name:{
+    facebookScreenName: {
+      type: 'string'
+    },
+    facebookName:{
       type: 'string'
     }
   }

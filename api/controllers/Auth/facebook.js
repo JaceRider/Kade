@@ -5,7 +5,12 @@ module.exports = {
   facebook: function(req, res) {
     var auth = sails.services.auth;
     var fb = auth.getFacebook;
-    res.redirect(auth.getFacebook.getLoginDialogURI());
+    auth.getSelf(req, function(err, user){
+      if(user){
+        req.session.user = user;
+      }
+      res.redirect(auth.getFacebook.getLoginDialogURI());
+    });
   },
 
   facebook_oauth: function(req, res) {
@@ -46,13 +51,18 @@ module.exports = {
         }
         var attr = {
           facebookId: _data.id,
-          name: _data.name
+          facebookScreenName: _data.username,
+          facebookName: _data.name
         };
-        if(req.session.authenticated){
+        if(req.session.user){
           attr.user = req.session.user.id;
+          if(typeof req.session.user.email === 'undefined'){
+            attr.email = _data.email;
+          }
           auth.attachAuthToUser(attr, req.session.user, userFound);
         }else{
-          auth.findOrCreateAuth({twitterId: attr.twitterId}, attr, userFound);
+          attr.email = _data.email;
+          auth.findOrCreateAuth({facebookId: attr.facebookId}, attr, userFound);
         }
       }
     }
@@ -69,12 +79,10 @@ module.exports = {
         sails.log.verbose(__filename + ':' + __line + ' ' + err);
         auth.loginFailure(req, res, null, {err: 'Trouble creating user.'});
       }
-
-      auth.loginSuccess(req, res, user);
       // Redirect to Angular route. We pass token so that it can be stored on
       // the client.
-      sails.log.verbose(__filename + ':' + __line + ' Redirecting to ' + '/user/twitter/oauth?token=' + user.token);
-      res.redirect('/user/facebook/oauth?token=' + user.token);
+      sails.log.verbose(__filename + ':' + __line + ' Redirecting to ' + '/user/facebook/oauth');
+      auth.loginSuccess(req, res, user, '/user/facebook/oauth');
     }
   }
 

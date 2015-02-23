@@ -25,9 +25,39 @@ module.exports = {
       type: 'string'
     },
 
+    // Instance methods
+    getName: function(){
+      var obj = this.toObject();
+      var name = 'Anonymous';
+      if(typeof obj.twitterName !== 'undefined'){
+        name = obj.twitterName;
+      }
+      if(typeof obj.facebookName !== 'undefined'){
+        name = obj.facebookName;
+      }
+      return name;
+    },
+
+    // Instance methods
+    getScreenName: function(){
+      var obj = this.toObject();
+      var name = obj.email;
+      if(typeof obj.twitterScreenName !== 'undefined'){
+        name = obj.twitterScreenName;
+      }
+      if(typeof obj.facebookScreenName !== 'undefined'){
+        name = obj.facebookScreenName;
+      }
+      return name;
+    },
+
     toJSON: function() {
       var obj = this.toObject();
       delete obj.password;
+      delete obj.createdAt;
+      delete obj.updatedAt;
+      obj.name = this.getName();
+      obj.screenName = this.getScreenName();
       return obj;
     }
   },
