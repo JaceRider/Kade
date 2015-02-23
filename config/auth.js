@@ -35,7 +35,7 @@ module.exports.auth = {
   // these tokens are used for authentication, password reset,
   // and anything else you can imagine
   jsonWebTokens: {
-    secret: 'change this secret',
+    secret: process.env.AUTH_JSWT_SECRET || 'change this secret',
     expiry:{
       unit: 'days',
       length: '7'
