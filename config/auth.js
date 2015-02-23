@@ -48,7 +48,7 @@ module.exports.auth = {
     // express session object and attach the
     // user to it during the hasJsonWebToken
     // middleware
-    stateless: false,
+    stateless: true,
   },
 
 };
