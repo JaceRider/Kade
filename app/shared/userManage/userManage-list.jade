@@ -1,3 +1,27 @@
 #user-manage
   .row
-    p hello manager
+    .columns.medium-12
+      ul.button-group.even-3.radius
+        li
+          a.button.tiny Button 1
+        li
+          a.button.tiny Button 1
+        li
+          a.button.tiny Button 1
+  .row
+    .columns.medium-12
+      .grid(ui-grid="vm.grid" ui-grid-selection)
+      hr
+      table
+        thead
+          tr
+            th Screen Name
+            th Name
+            th Email
+            th Created
+        tbody
+          tr(ng-repeat="user in vm.selected")
+            td {{ user.auth.screenName }}
+            td {{ user.auth.name }}
+            td {{ user.auth.email }}
+            td {{ user.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}

@@ -16,6 +16,7 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   // 'vendor/**/*.css',
+  'vendor/angular-ui-grid/ui-grid.css',
   'styles/**/*.css'
 ];
 
@@ -46,6 +47,7 @@ var jsLibFilesToInject = [
   'vendor/angular-animate/angular-animate.js',
   'vendor/angular-sanitize/angular-sanitize.js',
   'vendor/angular-local-storage/angular-local-storage.js',
+  'vendor/angular-ui-grid/ui-grid.js',
   'vendor/angularSails/ngsails.io.js',
 
   // Toastr
