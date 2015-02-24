@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 	grunt.registerTask('testAssets', [
-		'task:install',
+		'bower:install',
 		'clean:dev',
     'ngAnnotate:dev',
 		'copy:dev',
