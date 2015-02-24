@@ -25,7 +25,7 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: process.env.PORT || 80,
+  // port: 80,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
@@ -34,5 +34,13 @@ module.exports = {
   // log: {
   //   level: "silent"
   // }
+
+  /***************************************************************************
+   * Set the log level in production environment to "silent"                 *
+   ***************************************************************************/
+
+  grunt: {
+    _hookTimeout: 50000
+  }
 
 };
