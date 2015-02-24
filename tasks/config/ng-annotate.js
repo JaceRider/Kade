@@ -16,11 +16,6 @@ module.exports = function(grunt) {
     options: {
       singleQuotes: true,
     },
-    prod: {
-      files: {
-        '.tmp/public/ng-annotate/production.js': ['.tmp/public/concat/production.js']
-      }
-    },
     dev: {
       files: [{
         expand: true,
