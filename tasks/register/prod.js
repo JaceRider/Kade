@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 		'compileAssets',
 		'concat',
 		'ngAnnotate:prod',
+		'uglify',
 		'cssmin',
 		'sails-linker:prodJs',
 		'sails-linker:prodStyles',
