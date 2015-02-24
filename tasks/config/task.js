@@ -9,7 +9,7 @@
 
 module.exports = function(grunt) {
 
-	grunt.config.set('bower', {
+	grunt.config.set('task', {
 		install: {
 			options: {
 				targetDir: './assets/vendor',

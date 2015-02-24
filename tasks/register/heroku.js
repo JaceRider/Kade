@@ -1,5 +1,6 @@
 module.exports = function (grunt) {
 	grunt.registerTask('heroku', [
+		'task:install',
 		'compileAssets',
 		'concat',
 		'ngAnnotate:prod',
