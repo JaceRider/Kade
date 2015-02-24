@@ -14,7 +14,7 @@ var _ = require('lodash');
 module.exports.bootstrap = function(cb) {
 
   var installs = require('include-all')({
-    dirname     :  __dirname +'/install',
+    dirname     :  __dirname + '/../install',
     filter      :  /(.+)\.js$/,
     excludeDirs :  /^\.(git|svn)$/,
     optional    :  true

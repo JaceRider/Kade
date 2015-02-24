@@ -5,7 +5,7 @@
     /*
      * Angular modules
      */
-    'ui.router', 'ngAnimate', 'ngSanitize', 'sails.io',
+    'ui.router', 'ngAnimate', 'ngSanitize',
     /*
      * Our reusable cross app code modules
      */

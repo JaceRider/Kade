@@ -149,10 +149,10 @@ exports.loginToken = function(req, res, user){
       return res.serverError('JSON web token could not be created');
     }
 
-    res.json({
+    return {
       token : user.token,
       expires: expires
-    });
+    };
   });
 };
 
@@ -289,49 +289,6 @@ exports.attachAuthToUser = function(attributes, user, cb){
       // force create by pass of user id
       self.findOrCreateAuth(user.id, attributes, cb);
     }
-  });
-};
-
-/**
- * handles token creation
- *
- * @param  {Object} req  express request object
- * @param  {Object} res  expresss response object
- * @param  {Object} user the user instance
- * @api public
- */
-exports.loginToken = function(req, res, user){
-  var moment = require('moment');
-  var uuid = require('node-uuid');
-  var jwt = require('jwt-simple');
-  var path = require('path');
-  var config = this.getConfig();
-  var jsonWebTokens = config.jsonWebTokens || {};
-
-  var expiryUnit = (jsonWebTokens.expiry && jsonWebTokens.expiry.unit) || 'days';
-  var expiryLength = (jsonWebTokens.expiry && jsonWebTokens.expiry.length) || 7;
-  var expires = moment().add(expiryLength, expiryUnit).valueOf();
-  var issued = Date.now();
-
-  user.token = jwt.encode({
-    iss: user.id + '|' + req.remoteAddress,
-    sub: jsonWebTokens.subject,
-    aud: jsonWebTokens.audience,
-    exp: expires,
-    nbf: issued,
-    iat: issued,
-    jti: uuid.v1()
-  }, jsonWebTokens.secret);
-
-  Token.create({token: user.token, uses: 0, owner: user.id}).exec(function(err){
-    if(err){
-      return res.serverError('JSON web token could not be created');
-    }
-
-    res.json({
-      token : user.token,
-      expires: expires
-    });
   });
 };
 

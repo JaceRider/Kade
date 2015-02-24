@@ -38,7 +38,7 @@ module.exports = {
       var pass = params.password;
       auth.getUserAuthObject(params, true, function(err, user){
         if (err) {
-          res.serverError(err);
+          return res.serverError(err);
         }
 
         if (user) {
@@ -72,7 +72,7 @@ module.exports = {
       var pass = params.password;
       auth.getUserAuthObject(params, false, function(err, user){
         if (err) {
-          res.serverError(err);
+          return res.serverError(err);
         }
 
         if (user) {

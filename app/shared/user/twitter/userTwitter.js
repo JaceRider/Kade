@@ -10,12 +10,12 @@
    */
 
   /* @ngInject */
-  function UserTwitterOauth($location, $window, $sailsSocket, localStorageService, logger) {
+  function UserTwitterOauth($location, $window, $http, localStorageService, logger) {
     var destination = localStorageService.get('destination', destination);
     var token = $location.search()['access_token'];
 
     if(typeof token !== 'undefined'){
-      $sailsSocket.get('/api/user/self?access_token=' + token).
+      $http.get('/api/user/self?access_token=' + token).
         success(function(data, status, headers, config) {
           data.token = token;
           localStorageService.set('user', data);

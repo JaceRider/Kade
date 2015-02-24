@@ -48,7 +48,6 @@ var jsLibFilesToInject = [
   'vendor/angular-sanitize/angular-sanitize.js',
   'vendor/angular-local-storage/angular-local-storage.js',
   'vendor/angular-ui-grid/ui-grid.js',
-  'vendor/angularSails/ngsails.io.js',
 
   // Toastr
   'vendor/toastr/toastr.js',

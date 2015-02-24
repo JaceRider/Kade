@@ -6,7 +6,7 @@
     .factory('user', user);
 
   /* @ngInject */
-  function user($http, $q, $sailsSocket, localStorageService, userRoles) {
+  function user($http, $q, localStorageService, userRoles) {
     var service = {
       authorize: authorize,
       isAuthenticated: isAuthenticated,
@@ -87,7 +87,7 @@
     function login(user) {
       var deferred = $q.defer();
 
-      $sailsSocket.post('/api/auth/login', user).
+      $http.post('/api/auth/login', user).
         success(function(data, status, headers, config) {
           localStorageService.set('user', data);
           deferred.resolve(data);
@@ -102,7 +102,7 @@
     function signup(user) {
       var deferred = $q.defer();
 
-      $sailsSocket.post('/api/auth/signup', user).
+      $http.post('/api/auth/signup', user).
         success(function(data, status, headers, config) {
           localStorageService.set('user', data);
           deferred.resolve(data);
@@ -117,7 +117,7 @@
     function logout(){
       var deferred = $q.defer();
 
-      $sailsSocket.get('/api/auth/logout', status).
+      $http.get('/api/auth/logout', status).
         success(function(data, status, headers, config) {
           localStorageService.remove('user');
           deferred.resolve(data);
