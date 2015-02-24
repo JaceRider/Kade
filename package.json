@@ -5,9 +5,9 @@
   "description": "MongoDB + ExpressJS + AngularJS + NodeJS + SailsJS Seed",
   "keywords": [],
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install",
+    "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "node app.js",
+    "start": "sails lift",
     "watch": "node-dev app.js",
     "debug": "node debug app.js",
     "pretest": "npm install && webdriver-manager update",
